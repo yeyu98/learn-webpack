@@ -1,0 +1,10 @@
+@import './test.css';
+.content {
+    color: #12345678;
+}
+.bg-image {
+    width: 100px;
+    height: 100px;
+    background-image: url('../img/nvhai.jpg');
+    background-color: red;
+}

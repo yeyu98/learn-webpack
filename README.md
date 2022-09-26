@@ -58,5 +58,18 @@ webpack
                 - Autoprefixer：添加样式前缀；
                 - postcss-preset-env：将现代样式转换为绝大部分浏览器都能认识的样式，类似于babel的作用  同时也有Autoprefixer的功能；
                 - 插件配置项也可以通过postcss.config.js文件来全局配置；
-        
-                    
+    - 其他资源处理
+        - 图片处理
+            - file-loader：配置file-loader的时候需要通过output.publicPath指定一下静态资源的位置；
+                - options
+                    - [ext]: 扩展名；
+                    - [name]: 当前文件的名称；
+                    - [hash]: 由md4散列函数生成的32位16进制的字符（128位）；
+                    - [contentHash]: 在file-loader里同hash；
+                    - [hash:<length>]：可指定生成的hash长度；
+                    - outputPath：指定资源存放的路径；
+                - 问题
+                    - 问题一：打包background-image的时候会多打包一份图片出来，原因是css-loader6以上打包时会将url('xxx.jpg')默认转换成require('xxx.jpg') --- 在loader配置里设置type: 'javascript/auto'；
+                    - 问题二：又会导致第二个问题生成的路径中出现/[object%20Module]，原因是新版的file-loader默认采用esModule引入，而css-loader又会默认将url转换成require() cjs引入两种方式不一样导致 --- 设置options.esModule为false；
+                    - 问题三：因为我们开发的时候img的路径其实是在src下的，但打包之后实际的资源其实是在build/下的此时导致两者的路径不一致 --- 设置output.publicPath 为 build/
+            - url-loader：配置图片资源限制在xxkb之下通过url-loader转换成base64，之上的通过file-loader打包 且 只需要配置url-loader即可；
