@@ -12,14 +12,42 @@ module.exports = {
                 test: /\.css$/,
                 use: [
                     'style-loader',
-                    'css-loader', // 简写
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1
+                        }
+                    }, // 简写
+                    'postcss-loader'
+                    // {
+                    //     loader: 'postcss-loader',
+                    //     options: {
+                    //         postcssOptions: {
+                    //             plugins: ['postcss-preset-env']
+                    //         }
+                    //     }
+                    // }
                 ]
             }, 
             {
                 test: /\.less$/,
                 use: [
                     'style-loader', // less-loader只是将 less转换成css 还需要将css转换成js 之后再插入到html中
-                    'css-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 2
+                        }
+                    },
+                    'postcss-loader',
+                    // {
+                    //     loader: 'postcss-loader',
+                    //     options: {
+                    //         postcssOptions: {
+                    //             plugins: ['postcss-preset-env']
+                    //         }
+                    //     }
+                    // },
                     'less-loader'
                 ]
             }

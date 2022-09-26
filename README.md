@@ -27,23 +27,36 @@ webpack
                     - use<object [] | string []>：使用对应的loader来解析对应的类型的文件；
                         - loader: 传入对应的loader；
                         - options<object>: 传入当前loader的配置；
+                - css-loader中的options.importLoaders的配置指的是当css文件中有@import引入的文件时
+                  需要返回几个loader之后重新执行一次loader（根据后面有几个loader来定）；
             - 内联配置，如import Styles from '!style-loader!css-loader?modules!./styles.css';
-        - loader使用
-            - css、less、sass解析loader；
-            - css语法、js语法在不同浏览器中的兼容问题的loader（需要确定项目需要支持的浏览器版本）；
-                - browserslist工具：负责查询当前条件符合的浏览器，也就是当前浏览器市场占有率，共享目标浏览器的配置;
-                    - 查询原理是通过canisuse-lite的工具查询caniuse上面所对应的浏览器的数据；
-                    - 处理兼容
-                        - css前缀：Autoprefiexer；
-                        - js语法兼容： babel-loader；
-                        - postcss-preset-env
-                        - eslint-plugin-compat
-                        - stylelint-no-unsupported-browser-features
-                        - postcss-normalize
-                        - obsolete-webpack-plugin
-                    - 编写规则
-                        - 百分比：1%，表示市场占有率1%的浏览器；
-                        - dead： 24个月没有官方支持或更新的浏览器；
-                        - last 2 versions：每个浏览器最近的两个版本；
-                        - 并集通过","或or分隔、交集通过 and、非通过not；
+    - 浏览器兼容browserslist
+        - css语法、js语法在不同浏览器中的兼容问题的loader（需要确定项目需要支持的浏览器版本）；
+        - browserslist工具：负责查询当前条件符合的浏览器，也就是当前浏览器市场占有率，共享目标浏览器的配置;
+            - 查询原理是通过canisuse-lite的工具查询caniuse上面所对应的浏览器的数据；
+            - 处理兼容
+                - css前缀：Autoprefixer；
+                - js语法兼容： babel-loader；
+                - postcss-preset-env
+                - eslint-plugin-compat
+                - stylelint-no-unsupported-browser-features
+                - postcss-normalize
+                - obsolete-webpack-plugin
+            - 编写规则
+                - 百分比：1%，表示市场占有率1%的浏览器；
+                - dead： 24个月没有官方支持或更新的浏览器；
+                - last 2 versions：每个浏览器最近的两个版本；
+                - 并集通过","或or分隔、交集通过 and、非通过not；
+    - postcss工具
+        - css的转换和适配
+            - 给浏览器添加前缀；
+            - css样式重置；
+        - 使用
+            - 添加postcss、postcss-loader、postcss-cli（可以不添加）；
+                - 通过命令行输出 npx postcss --use autoprefixer -o result.css ./css/test.css
+            - 添加配置对应的插件；
+                - Autoprefixer：添加样式前缀；
+                - postcss-preset-env：将现代样式转换为绝大部分浏览器都能认识的样式，类似于babel的作用  同时也有Autoprefixer的功能；
+                - 插件配置项也可以通过postcss.config.js文件来全局配置；
+        
                     
