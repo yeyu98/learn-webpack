@@ -27,27 +27,13 @@ webpack
                     - use<object [] | string []>：使用对应的loader来解析对应的类型的文件；
                         - loader: 传入对应的loader；
                         - options<object>: 传入当前loader的配置；
-                - css-loader中的options.importLoaders的配置指的是当css文件中有@import引入的文件时
-                  需要返回几个loader之后重新执行一次loader（根据后面有几个loader来定）；
             - 内联配置，如import Styles from '!style-loader!css-loader?modules!./styles.css';
-    - 浏览器兼容browserslist
-        - css语法、js语法在不同浏览器中的兼容问题的loader（需要确定项目需要支持的浏览器版本）；
-        - browserslist工具：负责查询当前条件符合的浏览器，也就是当前浏览器市场占有率，共享目标浏览器的配置;
-            - 查询原理是通过canisuse-lite的工具查询caniuse上面所对应的浏览器的数据；
-            - 处理兼容
-                - css前缀：Autoprefixer；
-                - js语法兼容： babel-loader；
-                - postcss-preset-env
-                - eslint-plugin-compat
-                - stylelint-no-unsupported-browser-features
-                - postcss-normalize
-                - obsolete-webpack-plugin
-            - 编写规则
-                - 百分比：1%，表示市场占有率1%的浏览器；
-                - dead： 24个月没有官方支持或更新的浏览器；
-                - last 2 versions：每个浏览器最近的两个版本；
-                - 并集通过","或or分隔、交集通过 and、非通过not；
-    - postcss工具
+    - 样式处理
+        - style-loader：生成style标签插入到head里；
+        - css-loader：将css转换成webpack所认识的js代码；
+            - options.importLoaders: 当css文件中有@import引入的模块时需要返回几个loader之后重新处理一次该模块（根据后面有几个loader来定）；
+        - less-loader：仅仅只是将less转换成css；
+    - postcss工具（根据browserslist来判断哪些需要转换）
         - css的转换和适配
             - 给浏览器添加前缀；
             - css样式重置；
@@ -58,6 +44,23 @@ webpack
                 - Autoprefixer：添加样式前缀；
                 - postcss-preset-env：将现代样式转换为绝大部分浏览器都能认识的样式，类似于babel的作用  同时也有Autoprefixer的功能；
                 - 插件配置项也可以通过postcss.config.js文件来全局配置；
+    - 浏览器兼容browserslist
+        - css语法、js语法在不同浏览器中的兼容问题的loader（需要确定项目需要支持的浏览器版本）；
+        - browserslist工具：负责查询当前条件符合的浏览器，也就是当前浏览器市场占有率，共享目标浏览器的配置;
+            - 查询原理是通过canisuse-lite的工具查询caniuse上面所对应的浏览器的数据；
+            - 处理兼容
+                - Autoprefixer：添加css前缀；
+                - babel-loader：js语法兼容；
+                - postcss-preset-env：既包含Autoprefixer的功能又可以转换现代css成绝大部分浏览器可以识别的css；
+                - eslint-plugin-compat
+                - stylelint-no-unsupported-browser-features
+                - postcss-normalize
+                - obsolete-webpack-plugin
+            - 编写规则
+                - 百分比：1%，表示市场占有率1%的浏览器；
+                - dead： 24个月没有官方支持或更新的浏览器；
+                - last 2 versions：每个浏览器最近的两个版本；
+                - 并集通过","或or分隔、交集通过 and、非通过not；
     - 其他资源处理
         - 图片处理
             - file-loader：配置file-loader的时候需要通过output.publicPath指定一下静态资源的位置；
@@ -71,5 +74,5 @@ webpack
                 - 问题
                     - 问题一：打包background-image的时候会多打包一份图片出来，原因是css-loader6以上打包时会将url('xxx.jpg')默认转换成require('xxx.jpg') --- 在loader配置里设置type: 'javascript/auto'；
                     - 问题二：又会导致第二个问题生成的路径中出现/[object%20Module]，原因是新版的file-loader默认采用esModule引入，而css-loader又会默认将url转换成require() cjs引入两种方式不一样导致 --- 设置options.esModule为false；
-                    - 问题三：因为我们开发的时候img的路径其实是在src下的，但打包之后实际的资源其实是在build/下的此时导致两者的路径不一致 --- 设置output.publicPath 为 build/
+                    - 问题三：因为我们开发的时候img的路径其实是在src下的，但打包之后实际的资源其实是在build/下的此时导致两者的路径不一致 --- 设置output.publicPath 为 build/；
             - url-loader：配置图片资源限制在xxkb之下通过url-loader转换成base64，之上的通过file-loader打包 且 只需要配置url-loader即可；
