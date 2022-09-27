@@ -76,3 +76,22 @@ webpack
                     - 问题二：又会导致第二个问题生成的路径中出现/[object%20Module]，原因是新版的file-loader默认采用esModule引入，而css-loader又会默认将url转换成require() cjs引入两种方式不一样导致 --- 设置options.esModule为false；
                     - 问题三：因为我们开发的时候img的路径其实是在src下的，但打包之后实际的资源其实是在build/下的此时导致两者的路径不一致 --- 设置output.publicPath 为 build/；
             - url-loader：配置图片资源限制在xxkb之下通过url-loader转换成base64，之上的通过file-loader打包 且 只需要配置url-loader即可；
+        - 文本处理
+            - raw-loader：将txt、cvg或者指定的格式类型文件解析成字符串导出；
+                - 扩展知识 
+                    - innerText和textContent的区别
+                        - textContent任意一个node节点都可以使用，innerText只有Html元素可以使用（有待考证目前还不能确定哪些属于Node节点哪些属于Html元素）；
+                        - innerText获取到的只是单纯的文本，textContent可以获取所有子元素的内容包括<script>和<style>元素的文本内容；
+                        - innerText受css样式的影响不会展示隐藏的文本内容，而textContent可以展示所有的不受css影响；
+        - 资源模块类型（asset module type）：替换原先处理其他资源的loader；
+            - asset/resource：发送一个单独的文件并导出url功能类似于file-loader；
+                - 如果想将图片放入指定文件夹里则需要设置匹配的图片文件类型里的generator.filename 和原先file-loader设置名字的方法一样但扩展会自动加上".";
+                - output.assetModuleFilename 也可以设置输出图片资源的文件名以及文件夹但这个是全局的资源名设置，一旦设置了之后所有的文件都会匹配上并输出到文件夹中；
+            - asset/inline：导出资源的data uri功能类似于url-loader；
+                - 需要注意的是一旦设置了这个类型所有的图片都会被转换成base64则不需要指定文件存放文件夹以及名字；
+            - asset/source：将资源文件转换为字符串导出功能类似于raw-loader；
+            - asset：导出资源的data uri或者一个单独的文件url并在这之间做选择，可以指定大小限制，功能类似于url-loader和file-loader；
+                - 设置了此类型后需要设置一下parser.dataUrlCondition.maxSize 来指定限制的图片大小；
+
+
+    

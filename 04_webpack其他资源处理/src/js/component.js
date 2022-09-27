@@ -1,7 +1,6 @@
 import '../css/index.css'
 import '../css/component.less'
 import touxiang from '../img/touxiang.jpg'
-import data_02 from '../img/02.png'
 import data from '../txt/data.txt'
 
 function component () {
@@ -15,12 +14,13 @@ function component () {
 
     const bgDivEle = document.createElement('div')
     bgDivEle.className = 'bg-image'
+
     element.appendChild(bgDivEle)
 
     const spanEle = document.createElement('span')
     spanEle.innerText = data
+    
     element.appendChild(spanEle)
-    console.log('尝试图片转字符串', data_02)
     return element
 }
 

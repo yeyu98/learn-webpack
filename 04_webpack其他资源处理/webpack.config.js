@@ -5,7 +5,8 @@ module.exports = {
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, './build'),
-        publicPath: 'build/'
+        publicPath: 'build/',
+        // assetModuleFilename: 'img/[name].[hash:6][ext]' // 全局资源存放文件夹不建议这么使用
     },
     module: {
         rules: [
@@ -20,14 +21,6 @@ module.exports = {
                         }
                     }, // 简写
                     'postcss-loader'
-                    // {
-                    //     loader: 'postcss-loader',
-                    //     options: {
-                    //         postcssOptions: {
-                    //             plugins: ['postcss-preset-env']
-                    //         }
-                    //     }
-                    // }
                 ]
             }, 
             {
@@ -45,23 +38,20 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(jpe?g|svg|gif|webp|jfif)/,
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: {
-                            name:  'img/[name].[hash:6].[ext]',
-                            limit: 8 * 1024,
-                            // outputPath: 'img',
-                            esModule: false
-                        }
+                test: /\.(png|jpe?g|svg|gif|webp|jfif)$/,
+                type: 'asset', // asset/resource  asset/inline'
+                generator: {
+                    filename: 'img/[name].[hash:6][ext]'
+                },
+                parser: {
+                    dataUrlCondition: {
+                        maxSize: 8 * 1024
                     }
-                ],
-                type: 'javascript/auto'
+                }
             },
             {
-                test: /\.(png|txt)$/,
-                use: 'raw-loader'
+                test: /\.txt$/,
+                type: 'asset/source'
             }
         ]
     }
