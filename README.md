@@ -63,7 +63,7 @@ webpack
                 - 并集通过","或or分隔、交集通过 and、非通过not；
     - 其他资源处理
         - 图片处理
-            - file-loader：配置file-loader的时候需要通过output.publicPath指定一下静态资源的位置；
+            - file-loader：配置file-loader的时候需要通过output.publicPath指定一下静态资源的位置（可解析图片以及字体图标）；
                 - options
                     - [ext]: 扩展名；
                     - [name]: 当前文件的名称；

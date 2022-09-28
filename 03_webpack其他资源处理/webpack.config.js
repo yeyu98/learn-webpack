@@ -62,6 +62,19 @@ module.exports = {
             {
                 test: /\.(png|txt)$/,
                 use: 'raw-loader'
+            },
+            {
+                test: /\.(ttf|eot|woff2?)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: 'font/[name].[hash:6].[ext]',
+                            esModule: false
+                        }
+                    }
+                ],
+                type: 'javascript/auto'
             }
         ]
     }

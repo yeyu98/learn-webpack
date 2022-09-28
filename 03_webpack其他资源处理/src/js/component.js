@@ -1,8 +1,10 @@
 import '../css/index.css'
 import '../css/component.less'
+import '../font/iconfont.css'
 import touxiang from '../img/touxiang.jpg'
 import data_02 from '../img/02.png'
 import data from '../txt/data.txt'
+
 
 function component () {
     const element = document.createElement('div')
@@ -21,6 +23,13 @@ function component () {
     spanEle.innerText = data
     element.appendChild(spanEle)
     console.log('尝试图片转字符串', data_02)
+
+    const iEle = document.createElement('i')
+    iEle.className = 'iconfont icon-zu9 icon'
+    element.appendChild(iEle)
+
+
+
     return element
 }
 
