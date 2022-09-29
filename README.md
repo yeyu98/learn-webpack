@@ -92,7 +92,6 @@ webpack
             - asset/source：将资源文件转换为字符串导出功能类似于raw-loader；
             - asset：导出资源的data uri或者一个单独的文件url并在这之间做选择，可以指定大小限制，功能类似于url-loader和file-loader；
                 - 设置了此类型后需要设置一下parser.dataUrlCondition.maxSize 来指定限制的图片大小；
-    
     - plugin
         - 扩展webpack的功能比如打包压缩、资源管理、坏境变量注入等，可以贯穿webpack的整个生命周期，在不同的生命周期执行不同的任务；
         - CleanWebpackPlugin：再次打包的时候自动清理dist文件；
@@ -103,4 +102,4 @@ webpack
             - 属性 
                 - from：指定文件夹；
                 - ignoreOptions：该文件夹下不需要copy过去的文件，需要加前缀**/替代from里的文件夹；
-        
+- 模块化原理
