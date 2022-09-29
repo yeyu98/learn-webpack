@@ -102,4 +102,5 @@ webpack
             - 属性 
                 - from：指定文件夹；
                 - ignoreOptions：该文件夹下不需要copy过去的文件，需要加前缀**/替代from里的文件夹；
-- 模块化原理
+    - 模块化原理
+    - source map
