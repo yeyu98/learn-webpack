@@ -1,84 +1,55 @@
-(function () {
-  "use strict";
+// (function () {
+  /**
+   * 定义了一个模块对象以模块路径为key，模块内容为function value；
+   **/
   var __webpack_modules__ = {
-    "./src/esmodule_index.js": function (
-      __unused_webpack_module,
-      __webpack_exports__,
-      __webpack_require__
-    ) {
-      __webpack_require__.r(__webpack_exports__);
-      var _js_math__WEBPACK_IMPORTED_MODULE_0__ =
-        __webpack_require__("./src/js/math.js");
+    "./src/js/format.js": function (module) {
+      const dateFormat = (time) => {
+        return "2022/09/29";
+      };
 
-      console.log((0, _js_math__WEBPACK_IMPORTED_MODULE_0__.sum)(1, 2));
-      console.log((0, _js_math__WEBPACK_IMPORTED_MODULE_0__.mul)(1, 2));
-    },
-
-    "./src/js/math.js": function (
-      __unused_webpack_module,
-      __webpack_exports__,
-      __webpack_require__
-    ) {
-      __webpack_require__.r(__webpack_exports__);
-      __webpack_require__.d(__webpack_exports__, {
-        sum: function () {
-          return sum;
-        },
-        mul: function () {
-          return mul;
-        },
-      });
-      const sum = (num1, num2) => num1 + num2;
-      const mul = (num1, num2) => num1 * num2;
+      const priceFormat = (time) => {
+        return "29.99";
+      };
+      // 将当前模块内容通过传入的module导出利用了对象的赋值只赋值地址的特性
+      module.exports = {
+        dateFormat,
+        priceFormat,
+      };
     },
   };
 
+  // 定义一个缓存对象
   var __webpack_module_cache__ = {};
 
+  // 导入webpack中的模块
   function __webpack_require__(moduleId) {
+    // 判断是否存在于缓存中
     if (__webpack_module_cache__[moduleId]) {
       return __webpack_module_cache__[moduleId].exports;
     }
 
+    // NOTE 这里为什么需要加上括号？
+    // 等同于 var module = __webpack_module_cache__[moduleId] = {exports: {}};
+    // 初始化module以及缓存module对象为 {exports:{}}
     var module = (__webpack_module_cache__[moduleId] = {
       exports: {},
     });
 
+    // 将初始化之后的module={exports: {}} 传入当前模块函数中
     __webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 
     return module.exports;
   }
 
+  // NOTE 这里的！是将后面的内容作为一个表达式执行 此处涉及知识盲区
+  // 将函数前面使用()、!、+、-、~等符号都能将函数变成函数表达式，解析器就能识别并执行
+  // 此处等同于立即执行函数
   !(function () {
-    __webpack_require__.d = function (exports, definition) {
-      for (var key in definition) {
-        if (
-          __webpack_require__.o(definition, key) &&
-          !__webpack_require__.o(exports, key)
-        ) {
-          Object.defineProperty(exports, key, {
-            enumerable: true,
-            get: definition[key],
-          });
-        }
-      }
-    };
+    const { dateFormat, priceFormat } = __webpack_require__(
+    "./src/js/format.js"
+    );
+    console.log(dateFormat(12));
+    console.log(priceFormat(12));
   })();
-
-  !(function () {
-    __webpack_require__.o = function (obj, prop) {
-      return Object.prototype.hasOwnProperty.call(obj, prop);
-    };
-  })();
-
-  !(function () {
-    __webpack_require__.r = function (exports) {
-      if (typeof Symbol !== "undefined" && Symbol.toStringTag) {
-        Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
-      }
-      Object.defineProperty(exports, "__esModule", { value: true });
-    };
-  })();
-
-  __webpack_require__("./src/esmodule_index.js");
-})();
+// })();
