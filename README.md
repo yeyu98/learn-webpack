@@ -13,10 +13,21 @@ webpack
     - 打包：将你所使用的任何一种开发模式以及一些高级特性打包成js、css、html以及一些其他的静态文件的打包工具；
     - 构建原理：从入口开始，会对每个引入的模块生成一个依赖图，如果有些文件没有被引用则不存在于依赖图中；
                 之后遍历依赖图对图中的每个模块进行转换（通过loader）打包；
+    - 构建过程
+        - 初始化参数：解析webpack配置的参数，合并shell传入的参数以及webpack.config文件里的参数得到最终的配置结果；
+        - 开始编译：根据上一步得到的配置结果初始化complier对象，注册配置的所有插件，插件会监听webpack构建的生命周期（发布-订阅者模式）并在不同的生命周期里做出反应，执行对象的run方法开始编译；
+        - 确认入口：从配置的entry入口开始解析文件构建AST树，找出依赖并递归下去；
+        - 编译模块：递归中根据文件类型，调用所有的loader配置对为文件进行转换，再找出该模块的依赖模块，再递归此过程直到所有模块都被转换；
+        - 完成模块编译并输出：递归结束之后得到每个文件结果，包含每个模块以及他们的依赖关系，根据entry配置生成代码块chunk；
+        - 输出完成：输出所有chunk到指定的output路径中；
 - 起步
     - npm install webpack webpack-cli --save-dev
     - webpack-cli：不是必需品，但本质上就是用来解析webpack在package.json中配置后的参数，本质上就是一个函数根据传入的参数来执行webpack的某些动作；
 - 配置
+    - mode: 模式选择，默认为production，不同的模式默认配置的东西也不一样；
+        - production：ugly压缩代码；
+        - development
+        - none
     - entry
     - output
     - loader（用于对模块源代码做一个转换，转换成webpack认识的js）
@@ -102,5 +113,9 @@ webpack
             - 属性 
                 - from：指定文件夹；
                 - ignoreOptions：该文件夹下不需要copy过去的文件，需要加前缀**/替代from里的文件夹；
-    - 模块化原理
+    - 模块化原理（对模块化的解析）
+        - CommonJs实现原理：
+        - ES Module实现原理：
+        - CommonJs加载ES Module的原理：
+        - ES Module加载CommonJs的原理：
     - source map

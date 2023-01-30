@@ -1,11 +1,11 @@
 const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { DefinePlugin } = require('webpack')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
-    entry: './src/index.js',
+    mode: 'development',
+    devtool: 'source-map',
+    entry: './src/esmodule_index.js',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, './build')

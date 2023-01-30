@@ -1,1 +1,84 @@
-!function(){"use strict";var e={640:function(e,o,t){t.r(o),t.d(o,{sum:function(){return n},mul:function(){return r}});const n=(e,o)=>e+o,r=(e,o)=>e*o}},o={};function t(n){if(o[n])return o[n].exports;var r=o[n]={exports:{}};return e[n](r,r.exports,t),r.exports}t.d=function(e,o){for(var n in o)t.o(o,n)&&!t.o(e,n)&&Object.defineProperty(e,n,{enumerable:!0,get:o[n]})},t.o=function(e,o){return Object.prototype.hasOwnProperty.call(e,o)},t.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},function(){var e=t(640);const{mul:o}=t(640);console.log((0,e.sum)(1,2)),console.log(o(1,2))}()}();
+(function () {
+  "use strict";
+  var __webpack_modules__ = {
+    "./src/esmodule_index.js": function (
+      __unused_webpack_module,
+      __webpack_exports__,
+      __webpack_require__
+    ) {
+      __webpack_require__.r(__webpack_exports__);
+      var _js_math__WEBPACK_IMPORTED_MODULE_0__ =
+        __webpack_require__("./src/js/math.js");
+
+      console.log((0, _js_math__WEBPACK_IMPORTED_MODULE_0__.sum)(1, 2));
+      console.log((0, _js_math__WEBPACK_IMPORTED_MODULE_0__.mul)(1, 2));
+    },
+
+    "./src/js/math.js": function (
+      __unused_webpack_module,
+      __webpack_exports__,
+      __webpack_require__
+    ) {
+      __webpack_require__.r(__webpack_exports__);
+      __webpack_require__.d(__webpack_exports__, {
+        sum: function () {
+          return sum;
+        },
+        mul: function () {
+          return mul;
+        },
+      });
+      const sum = (num1, num2) => num1 + num2;
+      const mul = (num1, num2) => num1 * num2;
+    },
+  };
+
+  var __webpack_module_cache__ = {};
+
+  function __webpack_require__(moduleId) {
+    if (__webpack_module_cache__[moduleId]) {
+      return __webpack_module_cache__[moduleId].exports;
+    }
+
+    var module = (__webpack_module_cache__[moduleId] = {
+      exports: {},
+    });
+
+    __webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+
+    return module.exports;
+  }
+
+  !(function () {
+    __webpack_require__.d = function (exports, definition) {
+      for (var key in definition) {
+        if (
+          __webpack_require__.o(definition, key) &&
+          !__webpack_require__.o(exports, key)
+        ) {
+          Object.defineProperty(exports, key, {
+            enumerable: true,
+            get: definition[key],
+          });
+        }
+      }
+    };
+  })();
+
+  !(function () {
+    __webpack_require__.o = function (obj, prop) {
+      return Object.prototype.hasOwnProperty.call(obj, prop);
+    };
+  })();
+
+  !(function () {
+    __webpack_require__.r = function (exports) {
+      if (typeof Symbol !== "undefined" && Symbol.toStringTag) {
+        Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+      }
+      Object.defineProperty(exports, "__esModule", { value: true });
+    };
+  })();
+
+  __webpack_require__("./src/esmodule_index.js");
+})();
