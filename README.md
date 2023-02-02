@@ -121,7 +121,11 @@ webpack
             - PS：将函数前面使用()、!、+、-、~等符号都能将函数变成函数表达式，解析器就能识别并执行 等同立即执行函数；
             - PS：还需要补充知识点()、!、+、-、~、作用域；
         - ES Module实现原理：
-            -  
+            - __webpack_require__.r：将当前模块设置成 [Object Module] 以及 __esModule: true 添加标识；
+            - __webpack_require__.o：判断对象中是否存在某个属性 Object.prototype.hasOwnProperty.call 也可以通过 Reflect.has(target, prop) 判断；
+            - __webpack_require__.d：遍历esm导出的对象通过Object.defineProperty 劫持 exports中的属性 代理到definition对象（也就是传入的esm中）；
+            - 通过r给esm模块添加esModule标识
+            - esm导出时会传入module和module.exports 通过d函数定义 module.exports 通过get代理到 definition 并不是直接取值module.exports
         - CommonJs加载ES Module的原理：
         - ES Module加载CommonJs的原理：
     - source map
