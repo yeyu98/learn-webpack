@@ -1,3 +1,11 @@
+/*
+ * @Author: lzy-Jerry
+ * @Date: 2023-02-02 20:37:40
+ * @LastEditors: lzy-Jerry
+ * @LastEditTime: 2023-02-02 20:50:12
+ * @FilePath: \learn-webpack\06_webpack模块化原理\src\module\esm & cjs.js
+ * @Description: 
+ */
 (function () {
   var __webpack_modules__ = {
     "./src/index.js": function (
@@ -8,26 +16,18 @@
       "use strict";
       __webpack_require__.r(__webpack_exports__);
 
+      // 通过esm 导入 cjs导出需要先取module.exports 再对取出来的内容做代理
       var _js_format__WEBPACK_IMPORTED_MODULE_0__ =
         __webpack_require__("./src/js/format.js");
 
-
       var _js_format__WEBPACK_IMPORTED_MODULE_0___default =
         __webpack_require__.n(_js_format__WEBPACK_IMPORTED_MODULE_0__);
-      /*
-       * @Author: lzy-Jerry
-       * @Date: 2022-09-29 19:18:35
-       * @LastEditors: lzy-Jerry
-       * @LastEditTime: 2023-01-31 20:48:48
-       * @FilePath: \learn-webpack\06_webpack模块化原理\src\index.js
-       * @Description:
-       */
-      // esm 导出 commonjs导入
+
+      // cjs导入
       const { sum, mul } = __webpack_require__(
         /*! ./js/math */ "./src/js/math.js"
       );
 
-      // commonjs导出 esm导入
       console.log(sum(20, 30));
       console.log(mul(20, 30));
 
@@ -89,6 +89,7 @@
       exports: {},
     });
 
+    // (exports: {}, {})
     __webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 
     return module.exports;
@@ -105,6 +106,7 @@
           : function () {
               return module;
             };
+      // __webpack_require__.d(module, { a: module });
       __webpack_require__.d(getter, { a: getter });
       return getter;
     };

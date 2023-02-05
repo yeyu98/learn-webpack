@@ -9,7 +9,7 @@
     ) {
       // 给esmodule添加标识
       __webpack_require__.r(__webpack_exports__);
-      // 调用了第一个模块 math.js
+      // 调用了第一个模块 math.js`
       var _js_math__WEBPACK_IMPORTED_MODULE_0__ =
         __webpack_require__("./src/js/math.js");
 
