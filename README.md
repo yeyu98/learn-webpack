@@ -31,14 +31,13 @@ webpack
     - entry
     - output
     - loader（用于对模块源代码做一个转换，转换成webpack认识的js）
-        - 配置方法
-            - 手动配置：loader 从右到左（或从下到上）地取值(evaluate)/执行(execute)，每个loader都是一个流程需要一整套的执行链路；
-            - 通过module.rules来引入多个loader
-                - test<Regx>：匹配文件后缀告诉webpack是哪个文件要使用loader；
-                - use<object [] | string []>：使用对应的loader来解析对应的类型的文件；
-                    - loader: 传入对应的loader；
-                    - options<object>: 传入当前loader的配置；
-            - 内联配置，如import Styles from '!style-loader!css-loader?modules!./styles.css';
+        - 手动配置：loader 从右到左（或从下到上）地取值(evaluate)/执行(execute)，每个loader都是一个流程需要一整套的执行链路；
+        - 通过module.rules来引入多个loader
+            - test<Regx>：匹配文件后缀告诉webpack是哪个文件要使用loader；
+            - use<object [] | string []>：使用对应的loader来解析对应的类型的文件；
+                - loader: 传入对应的loader；
+                - options<object>: 传入当前loader的配置；
+        - 内联配置，如import Styles from '!style-loader!css-loader?modules!./styles.css';
     - 样式处理
         - style-loader：生成style标签插入到head里；
         - css-loader：将css转换成webpack所认识的js代码；
