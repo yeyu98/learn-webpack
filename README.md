@@ -136,7 +136,7 @@ webpack
             - version: 当前source map的版本（source map目前迭代了三个版本）；
             - sources:打包之后源代码所对应的文件路径；
             - names: 存放源代码所有的变量以及对应的压缩后的变量名称（用于映射使用），如果没有压缩的话就是个空数组；
-            - mappings: 通过base64的VLQ（variable length quantity）来存储所对应的源文件的位置信息如行列；
+            - mappings: 通过base64的VLQ可变值编码（variable length quantity）来存储所对应的源文件的位置信息如行列；
             - file：打包后的文件存放路径；
             - sourcesContent：源代码的内容；
-            - sourceRoot：源代码所对应的根目录；
+            - sourceRoot：sources所对应的根目录；
