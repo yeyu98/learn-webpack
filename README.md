@@ -76,11 +76,11 @@ webpack
         - 图片处理
             - file-loader：配置file-loader的时候需要通过output.publicPath指定一下静态资源的位置（可解析图片以及字体图标）；
                 - options
-                    - [ext]: 扩展名；
-                    - [name]: 当前文件的名称；
-                    - [hash]: 由md4散列函数生成的32位16进制的字符（128位）；
-                    - [contentHash]: 在file-loader里同hash；
-                    - [hash:<length>]：可指定生成的hash长度；
+                    - `[ext]`: 扩展名；
+                    - `[name]`: 当前文件的名称；
+                    - `[hash]`: 由md4散列函数生成的32位16进制的字符（128位）；
+                    - `[contentHash]`: 在file-loader里同hash；
+                    - `[hash:<length>]`：可指定生成的hash长度；
                     - outputPath：指定资源存放的路径；
                 - 问题
                     - 问题一：打包background-image的时候会多打包一份图片出来，原因是css-loader6以上打包时会将url('xxx.jpg')默认转换成require('xxx.jpg') --- 在loader配置里设置type: 'javascript/auto'；
@@ -132,4 +132,11 @@ webpack
         - 比如我们在打包的发布生产环境的时候会为了减少js包体积而做的压缩丑化，在比如我们使用ts或coffeescript开发时打包之后也会转换成js，那么这个时候如果我们要调试也需要通过source map来将ts文件与打包后的js文件做映射；
         - 原理
             - webpack在开启source map打包之后会在bundle js文件中添加注释 //# sourceMappingURL=bundle.js.map 告诉浏览器这个文件有对应的source map文件，此时浏览器会根据bundle.js文件以及source map文件将对应的源文件还原；
-            - 还原source map的原理是什么呢？
+        - .map文件所对应的概念
+            - version: 当前source map的版本（source map目前迭代了三个版本）；
+            - sources:打包之后源代码所对应的文件路径；
+            - names: 存放源代码所有的变量以及对应的压缩后的变量名称（用于映射使用），如果没有压缩的话就是个空数组；
+            - mappings: 通过base64的VLQ（variable length quantity）来存储所对应的源文件的位置信息如行列；
+            - file：打包后的文件存放路径；
+            - sourcesContent：源代码的内容；
+            - sourceRoot：源代码所对应的根目录；
