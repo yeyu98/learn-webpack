@@ -127,10 +127,7 @@ webpack
             - esm导出时会传入module和module.exports 通过d函数定义 module.exports 通过get代理到 definition 并不是直接取值module.exports
         - 补充一旦涉及到esm都需要做一个代理转换 如果只是esm导入则需要先通过n函数之后在通过d转换代理 如果只是esm导出那么这个模块则是通过r添加标识以及通过d代理转换即可
     - source map
-        - 是一个针对编译转换后js代码与js源码的映射文件，会用在调试中帮助定位到源文件中的某行某列；
-        - 比如我们在打包的发布生产环境的时候会为了减少js包体积而做的压缩丑化，在比如我们使用ts或coffeescript开发时打包之后也会转换成js，那么这个时候如果我们要调试也需要通过source map来将ts文件与打包后的js文件做映射；
-        - 原理
-            - webpack在开启source map打包之后会在bundle js文件中添加注释 //# sourceMappingURL=bundle.js.map 告诉浏览器这个文件有对应的source map文件，此时浏览器会根据bundle.js文件以及source map文件将对应的源文件还原；
+        - source map 是一个针对编译转换后js代码与js源码的映射文件，会用在调试中帮助定位到源文件中的某行某列；比如我们在打包的发布生产环境的时候会为了减少js包体积而做的压缩丑化，在比如我们使用ts或coffeescript开发时打包之后也会转换成js，那么这个时候如果我们要调试也需要通过source map来将ts文件与打包后的js文件做映射；
         - .map文件所对应的概念
             - version: 当前source map的版本（source map目前迭代了三个版本）；
             - sources:打包之后源代码所对应的文件路径；
@@ -139,4 +136,8 @@ webpack
             - file：打包后的文件存放路径；
             - sourcesContent：源代码的内容；
             - sourceRoot：sources所对应的根目录；
-        - 
+        - 模式原理：
+            - none：什么都不设置，production的默认值；
+            - eval：eval模式下会将每个webpack模块内容打包成 eval 包裹的字符串且字符串后面会有特定的注释告诉eval执行完打包代码之后还原映射源代码路径//# sourceURL=webpack://learn-webpack/./src/js/math.js?，eval利用的是浏览器对特定注释 //# sourceURL=xxx 自动解析并添加到sources中的特性来调试；
+            - source-map：webpack在开启source map打包之后会在bundle js文件中添加注释 //# sourceMappingURL=xxx.map 告诉浏览器这个文件有对应的source map文件，此时浏览器会根据bundle.js文件以及.map文件将对应的源文件还原；
+            - eval-source-map: 生成的.map 会被转成base64之后拼接到eval字符串后面；
