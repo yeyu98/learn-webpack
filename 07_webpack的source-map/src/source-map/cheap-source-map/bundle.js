@@ -20,19 +20,24 @@ __webpack_require__.r(__webpack_exports__);
  * @Description: 
  */
 // esm 导出 commonjs导入
-const {
-  sum,
-  mul
-} = __webpack_require__(/*! ./js/math */ "./src/js/math.js");
+const { sum, mul } = __webpack_require__(/*! ./js/math */ "./src/js/math.js")
 
 // commonjs导出 esm导入
+;
 
-console.log(sum(20, 30));
-console.log(mul(20, 30));
-console.log(_js_format__WEBPACK_IMPORTED_MODULE_0___default().dateFormat("aaa"));
-console.log(_js_format__WEBPACK_IMPORTED_MODULE_0___default().priceFormat("aaa"));
-console.log(abc);
-console.log("ccc");
+console.log(sum(20, 30))
+console.log(mul(20, 30))
+
+console.log(_js_format__WEBPACK_IMPORTED_MODULE_0___default().dateFormat("aaa"))
+console.log(_js_format__WEBPACK_IMPORTED_MODULE_0___default().priceFormat("aaa"))
+
+console.log(abc); console.log("ccc")
+
+
+
+
+
+
 
 /***/ }),
 
@@ -42,16 +47,17 @@ console.log("ccc");
   \**************************/
 /***/ (function(module) {
 
-const dateFormat = time => {
-  return '2022/09/29';
-};
-const priceFormat = time => {
-  return '29.99';
-};
+const dateFormat = (time) => {
+    return '2022/09/29'
+}
+
+const priceFormat = (time) => {
+    return '29.99'
+}
 module.exports = {
-  dateFormat,
-  priceFormat
-};
+    dateFormat,
+    priceFormat
+}
 
 /***/ }),
 
@@ -67,8 +73,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "sum": function() { return /* binding */ sum; },
 /* harmony export */   "mul": function() { return /* binding */ mul; }
 /* harmony export */ });
-const sum = (num1, num2) => num1 + num2;
-const mul = (num1, num2) => num1 * num2;
+const sum = (num1, num2) => num1 + num2
+const mul = (num1, num2) => num1 * num2
 
 /***/ })
 

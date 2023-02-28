@@ -145,4 +145,3 @@ const mul = (num1, num2) => num1 * num2;
 /******/ 	// This entry module used 'exports' so it can't be inlined
 /******/ })()
 ;
-//# sourceMappingURL=bundle.js.map

@@ -138,6 +138,23 @@ webpack
             - sourceRoot：sources所对应的根目录；
         - 模式原理：
             - none：什么都不设置，production的默认值；
-            - eval：eval模式下会将每个webpack模块内容打包成 eval 包裹的字符串且字符串后面会有特定的注释告诉eval执行完打包代码之后还原映射源代码路径//# sourceURL=webpack://learn-webpack/./src/js/math.js?，eval利用的是浏览器对特定注释 //# sourceURL=xxx 自动解析并添加到sources中的特性来调试；
-            - source-map：webpack在开启source map打包之后会在bundle js文件中添加注释 //# sourceMappingURL=xxx.map 告诉浏览器这个文件有对应的source map文件，此时浏览器会根据bundle.js文件以及.map文件将对应的源文件还原；
-            - eval-source-map: 生成的.map 会被转成base64之后拼接到eval字符串后面；
+            - eval：eval模式下会将每个webpack模块内容打包成 eval 包裹的字符串且字符串后面会有特定的注释告诉eval执行完打包代码之后还原映射源代码路径//# sourceURL=webpack://learn-webpack/./src/js/math.js?，eval利用的是浏览器对特定注释 //# sourceURL=xxx 自动解析并添加到sources中的特性来调试，无法精准定位到行列，因为映射之后的代码是webpack转译之后的代码；
+            - source-map：webpack在开启source map打包之后会在bundle js文件中添加注释 //# sourceMappingURL=xxx.map 告诉浏览器这个文件有对应的source map文件，此时浏览器会根据bundle.js文件以及.map文件将对应的源文件还原，会精确到行列；
+            - eval-source-map: 不会单独生成map文件，生成的map会被转成base64之后拼接到eval字符串后面，此时拥有了map可以精确的定位到某行某列；
+            - inline-source-map：不会单独生成map文件，会将map的信息通过base64加密之后内联到打包之后的js文件中，此时拥有了map可以精确的定位到某行；
+            - cheap-source-map: 和source-map一样但无法精确到列；
+            - cheap-module-source-map：对于有loader介入且转换的文件，需要使用该类型的souce-map定位到的代码就不会是loader翻译之后的源码，而是loader翻译之前我们正常编写的源码（等到讲到babel之后再回头尝试）；
+            - hidden-source-map: 会隐藏掉bundle.js文件后面用于解析源代码的特殊注释//# sourceMappingURL=bundle.js.map（告诉浏览器source-map在哪个位置），会生成的source-map，但无法跳转到源代码中（一般用于测试使用）；
+            - nosources-source-map：会生成错误提示但没有对应的源代码（感觉作用不大...）；
+        - 总结：[inline-|hidden-|eval][nosources-?][cheap-?[module-?]]source-map
+          - inline生成内联base64转换后的source-map；
+          - eval生成eval包含的源代码以及base64转换后的source-map；
+          - hidden隐藏source-map无法跳转；
+          - cheap生成无法精确定位到列的source-map；
+          - module生成针对loader转译之前的source-map；
+          - nosources能生成source-map但浏览器解析时只能看到错误信息，无法定位到源码；
+        - 疑问
+          - 单独的eval到底能不能精准定位到行列？ 不能因为报错提示跳转之后的代码是webpack转译之后的代码
+          - nosources是怎么做到只能看到错误提示信息而无法定位到源代码的呢？map文件中没有生成sourcesContent
+          - 浏览器是怎么解析//# sourceMappingURL=bundle.js.map 的呢？ 作用是告诉浏览器source-map在哪个位置 浏览器会找到对应的map文件并将其与bundle.js文件结合转换成源代码
+          - eval中生成的//# sourceURL=webpack://learn-webpack/./src/js/math.js?又是怎么解析的呢？作用是告诉浏览器sourceURL在哪个位置的 只能与eval结合使用

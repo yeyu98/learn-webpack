@@ -2,7 +2,7 @@
  * @Author: lzy-Jerry
  * @Date: 2022-09-29 19:18:35
  * @LastEditors: lzy-Jerry
- * @LastEditTime: 2023-02-05 11:19:12
+ * @LastEditTime: 2023-02-27 20:32:37
  * @FilePath: \learn-webpack\06_webpack模块化原理\src\index.js
  * @Description: 
  */
@@ -18,7 +18,7 @@ console.log(mul(20, 30))
 console.log(format.dateFormat("aaa"))
 console.log(format.priceFormat("aaa"))
 
-console.log(abc)
+console.log(abc); console.log("ccc")
 
 
 
