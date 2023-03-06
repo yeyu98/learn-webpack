@@ -153,8 +153,12 @@ webpack
           - cheap生成无法精确定位到列的source-map；
           - module生成针对loader转译之前的source-map；
           - nosources能生成source-map但浏览器解析时只能看到错误信息，无法定位到源码；
+          - 开发阶段最佳实践cheap-module-source-map；
         - 疑问
           - 单独的eval到底能不能精准定位到行列？ 不能因为报错提示跳转之后的代码是webpack转译之后的代码
           - nosources是怎么做到只能看到错误提示信息而无法定位到源代码的呢？map文件中没有生成sourcesContent
           - 浏览器是怎么解析//# sourceMappingURL=bundle.js.map 的呢？ 作用是告诉浏览器source-map在哪个位置 浏览器会找到对应的map文件并将其与bundle.js文件结合转换成源代码
           - eval中生成的//# sourceURL=webpack://learn-webpack/./src/js/math.js?又是怎么解析的呢？作用是告诉浏览器sourceURL在哪个位置的 只能与eval结合使用
+    - babel
+        - 本质上是一个工具链（转译工具）提供语法转换、源代码转换、polyfill（对旧有浏览器的兼容）最终生成能够在不同浏览器中运行的js代码；
+        - 应用场景：es6+语法、jsx、typescript等会将其转换成最终的js运行在不同的浏览器中； 
