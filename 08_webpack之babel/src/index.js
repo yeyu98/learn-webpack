@@ -2,23 +2,18 @@
  * @Author: lzy-Jerry
  * @Date: 2022-09-29 19:18:35
  * @LastEditors: lzy-Jerry
- * @LastEditTime: 2023-02-27 20:32:37
+ * @LastEditTime: 2023-03-07 20:59:21
  * @FilePath: \learn-webpack\06_webpack模块化原理\src\index.js
  * @Description: 
  */
-// esm 导出 commonjs导入
-const { sum, mul } = require("./js/math")
 
-// commonjs导出 esm导入
-import format from "./js/format"
+const message = "Hello, babel"
 
-console.log(sum(20, 30))
-console.log(mul(20, 30))
+const foo = (info) => {
+    console.log(info)
+}
 
-console.log(format.dateFormat("aaa"))
-console.log(format.priceFormat("aaa"))
-
-console.log(abc); console.log("ccc")
+foo(message)
 
 
 
