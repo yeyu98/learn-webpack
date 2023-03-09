@@ -161,5 +161,16 @@ webpack
           - eval中生成的//# sourceURL=webpack://learn-webpack/./src/js/math.js?又是怎么解析的呢？作用是告诉浏览器sourceURL在哪个位置的 只能与eval结合使用
     - babel
         - 本质上是一个工具链（转译工具）提供语法转换、源代码转换、polyfill（对旧有浏览器的兼容）最终生成能够在不同浏览器中运行的js代码；
+        - babel是个轻内核（内核为core）工具，可以只保留核心来根据需要安装不同的插件；
         - 应用场景：es6+语法、jsx、typescript等会将其转换成最终的js运行在不同的浏览器中； 
-        - 
+        - babel插件
+            - @babel/core：babel内核；
+            - @babel/cli：babel命令行工具可以使得babel通过命令行来执行；
+                - npx babel 文件目录或路径 --out-dir xxx（npx执行某个模块的命令）；
+            - @babel/preset-env：babel转换预设里面包含所有的plugins（涉及es6、es7、es8...）；
+            - @babel/plugins-xxx：转换插件（比如我要转换箭头函数就需要使用箭头函数的转换插件）
+                - @babel/plugin-transform-arrow-functions：箭头函数转换插件；
+                - @babel/plugin-transform-block-scoping：块级作用域转换插件比如const、let；
+        - 疑问
+          - babel/core包含哪些功能代码？ 
+          - 单纯在命令行中使用预设没有生效有点奇怪...

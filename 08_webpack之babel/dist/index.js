@@ -1,3 +1,5 @@
+"use strict";
+
 /*
  * @Author: lzy-Jerry
  * @Date: 2022-09-29 19:18:35
@@ -7,18 +9,11 @@
  * @Description: 
  */
 
-const message = "Hello, babel"
-
-const foo = (info) => {
-    console.log(info)
-}
-
-foo(message)
-
+const message = "Hello, babel";
+const foo = info => {
+  console.log(info);
+};
+foo(message);
 class Babel {
-    constructor() {
-       
-    }
+  constructor() {}
 }
-
-

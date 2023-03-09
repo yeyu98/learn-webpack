@@ -2,7 +2,7 @@
  * @Author: lzy-Jerry
  * @Date: 2022-09-29 19:18:35
  * @LastEditors: lzy-Jerry
- * @LastEditTime: 2023-02-28 21:23:39
+ * @LastEditTime: 2023-03-07 21:09:43
  * @FilePath: \learn-webpack\07_webpack的source-map\webpack.config.js
  * @Description: 
  */
@@ -18,19 +18,19 @@ module.exports = {
         filename: 'bundle.js',
         path: path.resolve(__dirname, './build')
     },
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                use: {
-                    loader: "babel-loader",
-                    options: {
-                        'presets': ["@babel/preset-env"]
-                    }
-                }
-            }
-        ]
-    },
+    // module: {
+    //     rules: [
+    //         {
+    //             test: /\.js$/,
+    //             use: {
+    //                 loader: "babel-loader",
+    //                 options: {
+    //                     'presets': ["@babel/preset-env"]
+    //                 }
+    //             }
+    //         }
+    //     ]
+    // },
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
