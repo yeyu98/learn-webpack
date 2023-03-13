@@ -171,6 +171,13 @@ webpack
             - @babel/plugins-xxx：转换插件（比如我要转换箭头函数就需要使用箭头函数的转换插件）
                 - @babel/plugin-transform-arrow-functions：箭头函数转换插件；
                 - @babel/plugin-transform-block-scoping：块级作用域转换插件比如const、let；
+        - babel底层原理
+          - 解析阶段（Parsing）、转换阶段（Transformation）、代码生成阶段（Code Generate）：
+          - babel转译过程
+            - 词法分析（对代码做词拆分且标明类型） --->>> tokens数组 --->>> 语法分析（分析具体语义） --->>> AST（抽象语法树）
+            - --->>> 遍历AST树（深度优先） --->>> Vistor（访问对象中的节点） --->>> plugins（使用对应的插件转换） 
+            - --->>> AST（新的语法树） --->>> 生成新的代码
+            - 可在这个网站查看对应的词法、语法分析结果 https://esprima.org/demo/parse.html#
         - 疑问
           - babel/core包含哪些功能代码？ 
           - 单纯在命令行中使用预设没有生效有点奇怪...

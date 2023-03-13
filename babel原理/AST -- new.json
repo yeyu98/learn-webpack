@@ -1,0 +1,98 @@
+{
+    "type": "Program",
+    "body": [
+      {
+        "type": "VariableDeclaration",
+        "declarations": [
+          {
+            "type": "VariableDeclarator",
+            "id": {
+              "type": "Identifier",
+              "name": "message"
+            },
+            "init": {
+              "type": "Literal",
+              "value": "Hello, babel",
+              "raw": "\"Hello, babel\""
+            }
+          }
+        ],
+        "kind": "var"
+      },
+      {
+        "type": "VariableDeclaration",
+        "declarations": [
+          {
+            "type": "VariableDeclarator",
+            "id": {
+              "type": "Identifier",
+              "name": "foo"
+            },
+            "init": {
+              "type": "FunctionExpression",
+              "id": {
+                "type": "Identifier",
+                "name": "foo"
+              },
+              "params": [
+                {
+                  "type": "Identifier",
+                  "name": "info"
+                }
+              ],
+              "body": {
+                "type": "BlockStatement",
+                "body": [
+                  {
+                    "type": "ExpressionStatement",
+                    "expression": {
+                      "type": "CallExpression",
+                      "callee": {
+                        "type": "MemberExpression",
+                        "computed": false,
+                        "object": {
+                          "type": "Identifier",
+                          "name": "console"
+                        },
+                        "property": {
+                          "type": "Identifier",
+                          "name": "log"
+                        }
+                      },
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "info"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "generator": false,
+              "expression": false,
+              "async": false
+            }
+          }
+        ],
+        "kind": "var"
+      },
+      {
+        "type": "ExpressionStatement",
+        "expression": {
+          "type": "CallExpression",
+          "callee": {
+            "type": "Identifier",
+            "name": "foo"
+          },
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "message"
+            }
+          ]
+        }
+      }
+    ],
+    "sourceType": "script"
+  }
