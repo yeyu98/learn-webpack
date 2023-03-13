@@ -178,6 +178,11 @@ webpack
             - --->>> 遍历AST树（深度优先） --->>> Vistor（访问对象中的节点） --->>> plugins（使用对应的插件转换） 
             - --->>> AST（新的语法树） --->>> 生成新的代码
             - 可在这个网站查看对应的词法、语法分析结果 https://esprima.org/demo/parse.html#
+        - babel/preset-env：会根据browserslist对js代码针对所需要适配的浏览器做一个转化；
+            - target: 可以配置目标浏览器优先级比browerslistrc高
         - 疑问
-          - babel/core包含哪些功能代码？ 
-          - 单纯在命令行中使用预设没有生效有点奇怪...
+          - @babel/core包含哪些功能代码？ 
+          - @babel/core、babel-loader、babel-plugin分别都有什么作用？
+          - 单纯在命令行中使用预设没有生效有点奇怪？
+            - 破案了，@babel/preset-env会根据配置的browerlist来确定需要如何转换代码，而我如今的配置都是最新的浏览器都支持es6
+            - 因此preset-env认为不需要做一些es6转es5的操作，如果想看转换那就把它设置成IE56吧...
