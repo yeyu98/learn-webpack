@@ -2,7 +2,7 @@
  * @Author: lzy-Jerry
  * @Date: 2022-09-29 19:18:35
  * @LastEditors: lzy-Jerry
- * @LastEditTime: 2023-03-13 21:01:00
+ * @LastEditTime: 2023-03-27 22:12:24
  * @FilePath: \learn-webpack\07_webpack的source-map\webpack.config.js
  * @Description: 
  */
@@ -22,20 +22,21 @@ module.exports = {
         rules: [
             {
                 test: /\.js$/,
+                exclude: /node_modules/,
                 use: {
                     loader: "babel-loader",
-                    options: {
-                        // plugins: [
-                        //     "@babel/plugin-transform-arrow-functions",
-                        //     "@babel/plugin-transform-block-scoping",
-                        //     "@babel/plugin-transform-classes",
-                        // ]
-                        presets: [
-                            ["@babel/preset-env", {
-                                "targets": ["IE 11"]
-                            }]
-                        ]
-                    }
+                    // options: {
+                    //     // plugins: [
+                    //     //     "@babel/plugin-transform-arrow-functions",
+                    //     //     "@babel/plugin-transform-block-scoping",
+                    //     //     "@babel/plugin-transform-classes",
+                    //     // ]
+                    //     presets: [
+                    //         ["@babel/preset-env", {
+                    //             "targets": ["IE 11"]
+                    //         }]
+                    //     ]
+                    // }
                 }
             }
         ]

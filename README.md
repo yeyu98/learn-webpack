@@ -168,6 +168,8 @@ webpack
             - @babel/cli：babel命令行工具可以使得babel通过命令行来执行；
                 - npx babel 文件目录或路径 --out-dir xxx（npx执行某个模块的命令）；
             - @babel/preset-env：babel转换预设里面包含所有的plugins（涉及es6、es7、es8...）；
+              - 作用：会根据browserslist对js代码针对所需要适配的浏览器做一个转化；
+              - target: 可以配置目标浏览器优先级比browerslistrc高，但不建议在target中写；
             - @babel/plugins-xxx：转换插件（比如我要转换箭头函数就需要使用箭头函数的转换插件）
                 - @babel/plugin-transform-arrow-functions：箭头函数转换插件；
                 - @babel/plugin-transform-block-scoping：块级作用域转换插件比如const、let；
@@ -178,11 +180,37 @@ webpack
             - --->>> 遍历AST树（深度优先） --->>> Vistor（访问对象中的节点） --->>> plugins（使用对应的插件转换） 
             - --->>> AST（新的语法树） --->>> 生成新的代码
             - 可在这个网站查看对应的词法、语法分析结果 https://esprima.org/demo/parse.html#
-        - babel/preset-env：会根据browserslist对js代码针对所需要适配的浏览器做一个转化；
-            - target: 可以配置目标浏览器优先级比browerslistrc高
+        - babel配置文件
+            - .babelrc.json：对于多包管理Monorepos项目配置麻烦 （具体麻烦在哪里呢？）；
+            - babel.config.json：可直接应用于Monorepos项目，推荐使用；
+        - babel-polyfill
+            - polyfill垫片、补丁，在某些浏览器中可以无法支持（Promise、Generate、async\await、Symbol），此时通过pollyfill
+            - 定义的类来兼容对应的语法；
+            - 使用：
+              - 某个版本之后的bable/polyfill需要引入regenerator-runtime core-js而不是bable/polyfill；
+              - npm i regenerator-runtime core-js；
+                - regenerator-runtime是对 async、generator的polyfill；
+                - core-js旧浏览器对其他新特性的支持如promise、symbol等的polyfill；
+              - polyfill本质上是对引入预设中的一部分代码的支持，因此需要在预设中配置polyfill；
+                - useBuiltIns
+                  - false：配置之后不对当前预设使用polyfill；
+                  - usage：配置之后只针对项目中引入的一些特性进行垫片适配不同浏览器，类似于按需引入；
+                    - 默认情况下babel会使用corejs2来生成polyfill此时可能会因为babel版本高于corejs2而导致生成代码出错；
+                    - 需要注意的是在此配置的polyfill生成的对旧浏览器中新特性支持的代码会与node_modules中生成的冲突（在babel-loader中配置exclude）；
+                    - 因此需要对babel-loader配置排除node_modules；
+                  - entry：在入口文件中引入 corejs和 regenerator-runtime此时会根据配置的.browserlistrc来决定需要引入哪些垫片来支持这些浏览器 （根据浏览器来判断且引入所有的特性支持这些浏览器） 此时文件会变得异常的大；
         - 疑问
           - @babel/core包含哪些功能代码？ 
           - @babel/core、babel-loader、babel-plugin分别都有什么作用？
           - 单纯在命令行中使用预设没有生效有点奇怪？
             - 破案了，@babel/preset-env会根据配置的browerlist来确定需要如何转换代码，而我如今的配置都是最新的浏览器都支持es6
             - 因此preset-env认为不需要做一些es6转es5的操作，如果想看转换那就把它设置成IE56吧...
+          - 为什么需要在babel-loader里配置exclude呢？
+            - 排除node_modules或其他引入文件里同等实现新特性的冲突；
+            - 埋坑，所以loader的作用到底是什么呢？
+          - 如果只是想单纯转换 generators or async function 是不是可以不用引入regenerator runtime 而直接使用babel/core呢？
+            - Babel >= 7.18.0后不需要引入regenerator runtime，babel直接内置到了babel/core里面；
+            - Babel < 7.18.0 则需要引入regenerator runtime；
+            - 目前没有验证出来，先记住这一点趴；
+          - useBuiltIns如果配置了usage但没配置corejs版本是否会使用默认的2版本？
+            - 是的，官方有说
