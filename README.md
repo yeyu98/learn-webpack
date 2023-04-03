@@ -184,7 +184,7 @@ webpack
             - .babelrc.json：对于多包管理Monorepos项目配置麻烦 （具体麻烦在哪里呢？）；
             - babel.config.json：可直接应用于Monorepos项目，推荐使用；
         - babel-polyfill
-            - polyfill垫片、补丁，在某些浏览器中可以无法支持（Promise、Generate、async\await、Symbol），此时通过pollyfill
+            - polyfill垫片、补丁，在某些浏览器中可以无法支持（Promise、Generate、async\await、Symbol），此时通过pollyfill，这里的polyfill是个全局的polyfill；
             - 定义的类来兼容对应的语法；
             - 使用：
               - 某个版本之后的bable/polyfill需要引入regenerator-runtime core-js而不是bable/polyfill；
@@ -199,6 +199,7 @@ webpack
                     - 需要注意的是在此配置的polyfill生成的对旧浏览器中新特性支持的代码会与node_modules中生成的冲突（在babel-loader中配置exclude）；
                     - 因此需要对babel-loader配置排除node_modules；
                   - entry：在入口文件中引入 corejs和 regenerator-runtime此时会根据配置的.browserlistrc来决定需要引入哪些垫片来支持这些浏览器 （根据浏览器来判断且引入所有的特性支持这些浏览器） 此时文件会变得异常的大；
+        - @babel/plugin-transform-runtime：作用等同于core & regenerator-runtime也是个polyfill但是是局部的作用域，一般会在第三方工具中引入使用，防止他人引入该工具时被污染；
         - 疑问
           - @babel/core包含哪些功能代码？ 
           - @babel/core、babel-loader、babel-plugin分别都有什么作用？
